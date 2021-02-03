@@ -1,0 +1,108 @@
+import matplotlib.pyplot as plt
+import numpy as np
+from math import sin, cos, radians, sqrt
+import keyboard
+# ___ Se descarga y utiliza la biblioteca keyboard
+
+def plot(x,y,z):
+    plt.axis([0,150,100,0])
+    plt.axis('on')
+    plt.grid(True)
+        
+    plt.plot([x[0],x[1]],[y[0],y[1]],color='k') #
+    plt.plot([x[1],x[2]],[y[1],y[2]],color='k')
+    plt.plot([x[2],x[0]],[y[2],y[0]],color='k')
+
+	#________ HITPOINT
+    plt.scatter(x[3],y[3],s=10,color='peru')
+
+    plt.plot([x[0],x[3]],[y[0],y[3]],linestyle=':',color='peru') #
+    plt.plot([x[1],x[3]],[y[1],y[3]],linestyle=':',color='peru')
+    plt.plot([x[2],x[3]],[y[2],y[3]],linestyle=':',color='peru')
+    plt.text(35,63,'0') #
+    plt.text(25,10,'1')
+    plt.text(83,63,'2')
+    plt.text(x[3]+2,y[3],'3')
+    a=x[1]-x[0] #
+    b=y[1]-y[0]
+    c=z[1]-z[0]
+    Z1=sqrt(a*a+b*b+c*c)
+    a=x[2]-x[1]
+    b=y[2]-y[2]
+
+    Z12=sqrt(a*a+b*b)
+
+    a=x[2]-x[0]
+    b=y[3]-y[0]
+    c=z[2]-z[0]
+    Z2=sqrt(a*a+b*b+c*c)
+    a=x[1]-x[3]
+    b=y[1]-y[3]
+
+
+    Z13=sqrt(a*a+b*b)
+
+    a=x[2]-x[3]
+    b=y[2]-y[3]
+    c=z[2]-z[3]
+    Z23=sqrt(a*a+b*b+c*c)
+
+    a=x[0]-x[3]
+    b=y[0]-y[3]
+
+    Z3=sqrt(a*a+b*b)
+
+    s=(Z1+Z12+Z2)/2 #Heron
+    A=sqrt(s*(s-Z1)*(s-Z12)*(s-Z2))
+    s1=(Z1+Z3+Z13)/2
+    A1=sqrt(s1*(s1-Z1)*(s1-Z3)*(s1-Z13))
+
+    s2=(Z2+Z23+Z3)/2
+    A2=sqrt(s2*(s2-Z2)*(s2-Z23)*(s2-Z3))
+        
+    plt.text(62,73,'A',color='k')
+    plt.text(100,40,'A=') #text
+    dle='%7.0f'% (A)
+    dls=str(dle)
+    plt.text(105,40,dls)
+
+    plt.text(100,45,'A1=',color='peru')
+    dle='%7.0f'% (A1)
+    dls=str(dle)
+    plt.text(105,45,dls)
+    plt.text(100,50,'A2=',color='peru')
+    dle='%7.0f'% (A2)
+    dls=str(dle)
+    plt.text(105,50,dls)
+    plt.text(91,55,'A1+A2=',color='peru')
+    dle='%7.0f'% (A1+A2)
+    dls=str(dle)
+       
+	# ___Al llegar a un valor de 90 o mayor, se produce un error al no poder procesar tales cantidades en las operaciones
+	# ___Se calcula y se muestra si se encuentra fuera o dentro del rango
+    if A1+A2 > A:
+        plt.text(100,63,"int put")
+    else:
+        plt.text(70,73,"Fuera de rango")
+    plt.show()
+
+
+
+print("Para continuar el programa presione ENTER")
+print("Para terminar el programa presione ESC")
+while True:
+
+    if keyboard.is_pressed("ENTER"):
+        input()    
+        xw=float(input("Hitpoint en x"))
+        yw=float(input("Hitpoint y"))
+        x=[40,30,80,xw] #
+        y=[60,10,60,yw]
+        z=[0,0,0,0]
+
+        plot(x,y,z)
+
+    if keyboard.is_pressed("Esc"):
+        print("Programa terminado")
+        break
+
